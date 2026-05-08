@@ -1,391 +1,897 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shiva Shankar | Portfolio</title>
-  <meta name="description" content="Shiva Shankar — AI-powered Full Stack & Android Developer. Projects, skills, and contact." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Tupakula Siva Shankar — AI & Full Stack Developer, BE IT Student at Vasavi College of Engineering">
+<title>Siva Shankar | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050810;
+    --bg2: #080d1a;
+    --accent: #00f5c4;
+    --accent2: #4f6fff;
+    --accent3: #ff4f8b;
+    --text: #e8edf8;
+    --muted: #6b7a99;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ─── CUSTOM CURSOR ─── */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 9999;
+    transition: transform 0.15s ease, opacity 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(0,245,196,0.4);
+    border-radius: 50%;
+    position: fixed; pointer-events: none; z-index: 9998;
+    transition: transform 0.4s cubic-bezier(.23,1,.32,1), opacity 0.2s;
+  }
+
+  /* ─── CANVAS BG ─── */
+  #bg-canvas {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    z-index: 0; opacity: 0.35;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 150px;
+    pointer-events: none; opacity: 0.6;
+  }
+
+  /* ─── LAYOUT ─── */
+  .wrapper { position: relative; z-index: 2; }
+
+  section { padding: 100px 6vw; max-width: 1200px; margin: 0 auto; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 6vw;
+    background: rgba(5,8,16,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    transition: padding 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 3px;
+    color: var(--accent);
+  }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 600; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: 120px;
+    position: relative;
+    max-width: 100%;
+    padding-left: 6vw; padding-right: 6vw;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 60px; align-items: center;
+    width: 100%; max-width: 1200px; margin: 0 auto;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(0,245,196,0.08); border: 1px solid rgba(0,245,196,0.2);
+    border-radius: 100px; padding: 6px 16px;
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--accent);
+    letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px;
+  }
+  .hero-tag span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blink 1.2s infinite; }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, #fff 30%, var(--accent) 70%, var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 6px;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    letter-spacing: 6px; color: var(--accent2); margin-bottom: 24px;
+  }
+
+  .hero-bio {
+    color: var(--muted); line-height: 1.75; font-size: 1rem;
+    max-width: 520px; margin-bottom: 40px;
+    font-weight: 400;
+  }
+
+  .hero-bio strong { color: var(--text); }
+
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent); color: #050810;
+    padding: 14px 28px; border-radius: 4px;
+    font-weight: 700; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(0,245,196,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,245,196,0.5); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid var(--glass-border); color: var(--text);
+    padding: 14px 28px; border-radius: 4px;
+    font-weight: 600; font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Hero Card */
+  .hero-card {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 20px; padding: 36px;
+    backdrop-filter: blur(10px);
+    position: relative; overflow: hidden;
+  }
+  .hero-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(0,245,196,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .avatar-ring {
+    width: 100px; height: 100px; margin: 0 auto 20px;
+    border-radius: 50%; padding: 3px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    position: relative;
+  }
+  .avatar-inner {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: linear-gradient(135deg, #1a2340, #0d1528);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem;
+    color: var(--accent); letter-spacing: 2px;
+  }
+
+  .card-name { text-align: center; font-weight: 800; font-size: 1.15rem; margin-bottom: 4px; }
+  .card-sub { text-align: center; color: var(--muted); font-size: 0.82rem; font-family: 'DM Mono', monospace; margin-bottom: 24px; }
+
+  .card-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-bottom: 24px;
+  }
+  .stat {
+    background: rgba(0,0,0,0.3); border-radius: 10px; padding: 14px;
+    text-align: center;
+  }
+  .stat-n { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--accent); line-height: 1; }
+  .stat-l { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  .social-links { display: flex; justify-content: center; gap: 12px; }
+  .social-links a {
+    width: 38px; height: 38px; border-radius: 8px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); text-decoration: none; font-size: 0.85rem;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .social-links a:hover { color: var(--accent); border-color: rgba(0,245,196,0.4); background: rgba(0,245,196,0.06); }
+
+  /* ─── SECTION HEADER ─── */
+  .sec-label {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    color: var(--accent); letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .sec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 3.5rem);
+    letter-spacing: 3px; margin-bottom: 16px;
+    line-height: 1;
+  }
+  .sec-sub {
+    color: var(--muted); font-size: 1rem; max-width: 500px; line-height: 1.7; margin-bottom: 56px;
+  }
+  .sec-divider {
+    width: 60px; height: 3px; margin-bottom: 20px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+  }
+
+  /* ─── ABOUT ─── */
+  #about .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+  }
+  .about-block {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 32px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .about-block:hover { border-color: rgba(0,245,196,0.3); transform: translateY(-4px); }
+
+  .about-icon { font-size: 1.8rem; margin-bottom: 14px; }
+  .about-block h3 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+  .about-block p { color: var(--muted); line-height: 1.7; font-size: 0.92rem; }
+
+  .about-highlight {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(0,245,196,0.06), rgba(79,111,255,0.06));
+    border: 1px solid rgba(0,245,196,0.15);
+    border-radius: 16px; padding: 32px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .about-highlight .big-number {
+    font-family: 'Bebas Neue', sans-serif; font-size: 5rem;
+    color: var(--accent); line-height: 1; white-space: nowrap;
+  }
+  .about-highlight p { color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+  .about-highlight strong { color: var(--text); }
+
+  /* ─── SKILLS ─── */
+  #skills .skills-wrapper { display: flex; flex-direction: column; gap: 40px; }
+
+  .skill-category h3 {
+    font-family: 'DM Mono', monospace; font-size: 0.75rem;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+  }
+
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .skill-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 18px; border-radius: 100px;
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.5px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .skill-pill:hover {
+    border-color: var(--accent); color: var(--accent);
+    background: rgba(0,245,196,0.08);
+    transform: translateY(-2px);
+  }
+  .skill-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .skill-pill.blue .dot { background: var(--accent2); }
+  .skill-pill.blue:hover { border-color: var(--accent2); color: var(--accent2); background: rgba(79,111,255,0.08); }
+  .skill-pill.pink .dot { background: var(--accent3); }
+  .skill-pill.pink:hover { border-color: var(--accent3); color: var(--accent3); background: rgba(255,79,139,0.08); }
+
+  /* ─── CERTIFICATIONS ─── */
+  #certifications .cert-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .cert-card {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 28px;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .cert-card:hover { transform: translateY(-6px); border-color: rgba(0,245,196,0.3); }
+  .cert-card::after {
+    content: '';  position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,245,196,0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .cert-issuer {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .cert-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+  .cert-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 20px; }
+  .cert-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--accent); font-size: 0.8rem; text-decoration: none;
+    font-family: 'DM Mono', monospace; letter-spacing: 1px;
+    border-bottom: 1px solid rgba(0,245,196,0.3);
+    padding-bottom: 2px; transition: border-color 0.2s;
+  }
+  .cert-link:hover { border-color: var(--accent); }
+
+  /* ─── PROJECTS ─── */
+  #projects .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .project-card {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 16px; padding: 28px;
+    display: flex; flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .project-card:hover { transform: translateY(-6px); border-color: rgba(79,111,255,0.4); }
+  .project-card::before {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-lang {
+    display: inline-block; font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; color: var(--accent2); background: rgba(79,111,255,0.1);
+    border: 1px solid rgba(79,111,255,0.2); border-radius: 4px;
+    padding: 3px 10px; letter-spacing: 1px; margin-bottom: 14px;
+  }
+
+  .project-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; }
+  .project-card ul { list-style: none; flex: 1; }
+  .project-card ul li {
+    color: var(--muted); font-size: 0.85rem; line-height: 1.6; margin-bottom: 6px;
+    padding-left: 16px; position: relative;
+  }
+  .project-card ul li::before {
+    content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem;
+  }
+  .project-footer {
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid var(--glass-border);
+    display: flex; gap: 12px;
+  }
+  .project-footer a {
+    font-family: 'DM Mono', monospace; font-size: 0.75rem; text-decoration: none;
+    color: var(--muted); display: inline-flex; align-items: center; gap: 6px;
+    transition: color 0.2s;
+  }
+  .project-footer a:hover { color: var(--accent); }
+
+  /* ─── CONTACT ─── */
+  #contact .contact-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  }
+  .contact-left h2 { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; letter-spacing: 3px; line-height: 1; margin-bottom: 16px; }
+  .contact-left p { color: var(--muted); line-height: 1.7; margin-bottom: 32px; }
+
+  .contact-items { display: flex; flex-direction: column; gap: 14px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 16px;
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 12px; padding: 16px 20px;
+    text-decoration: none; color: var(--text);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .contact-item:hover { border-color: rgba(0,245,196,0.3); transform: translateX(6px); }
+  .contact-icon { font-size: 1.2rem; min-width: 24px; text-align: center; }
+  .contact-text span { display: block; font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 2px; }
+  .contact-text strong { font-size: 0.9rem; }
+
+  /* Right panel */
+  .contact-right {
+    background: var(--glass); border: 1px solid var(--glass-border);
+    border-radius: 20px; padding: 36px;
+  }
+  .contact-right h3 { font-weight: 700; font-size: 1.1rem; margin-bottom: 24px; }
+
+  .info-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--glass-border); }
+  .info-row:last-child { border-bottom: none; }
+  .info-row .label { color: var(--muted); font-size: 0.85rem; font-family: 'DM Mono', monospace; }
+  .info-row .value { font-size: 0.9rem; font-weight: 600; }
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(0,245,196,0.1); border: 1px solid rgba(0,245,196,0.2);
+    border-radius: 100px; padding: 4px 12px;
+    color: var(--accent); font-size: 0.75rem; font-family: 'DM Mono', monospace;
+  }
+  .status-badge .dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blink 1.2s infinite; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative; z-index: 2;
+    border-top: 1px solid var(--glass-border);
+    padding: 30px 6vw;
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--muted); font-size: 0.8rem; font-family: 'DM Mono', monospace;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* ─── REVEAL ANIMATION ─── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,245,196,0.3); border-radius: 2px; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-card { display: none; }
+    #about .about-grid { grid-template-columns: 1fr; }
+    #contact .contact-wrap { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
 </head>
-
 <body>
-  <header class="nav">
-    <div class="container nav__inner">
-      <a class="brand" href="#top" aria-label="Home">
-        <span class="brand__dot"></span>
-        <span class="brand__text">Shiva Shankar</span>
-      </a>
 
-      <nav class="menu" aria-label="Primary">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact" class="btn btn--small">Contact</a>
-      </nav>
+<canvas id="bg-canvas"></canvas>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<div class="wrapper">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">SS</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-content reveal">
+        <div class="hero-tag"><span></span>Open to Internships &amp; Collaborations</div>
+        <div class="hero-name">SIVA<br>SHANKAR</div>
+        <div class="hero-title">AI · Full Stack · Android</div>
+        <p class="hero-bio">
+          <strong>BE Information Technology</strong> student at Vasavi College of Engineering, Hyderabad.
+          I build full-stack web apps, Python utilities, and AI-integrated systems —
+          from hackathon MVPs to production-ready platforms.
+          Diploma in CSE with <strong>9.32 CGPA</strong> from Govt. Polytechnic, Nalgonda.
+        </p>
+        <div class="hero-ctas">
+          <a href="#projects" class="btn-primary">View Projects ↗</a>
+          <a href="#contact" class="btn-ghost">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="hero-card reveal" style="animation-delay:0.2s">
+        <div class="avatar-ring">
+          <div class="avatar-inner">SS</div>
+        </div>
+        <div class="card-name">Tupakula Siva Shankar</div>
+        <div class="card-sub">@shiva13-ai · Hyderabad, India</div>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-n">9.32</div><div class="stat-l">Diploma CGPA</div></div>
+          <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Projects</div></div>
+          <div class="stat"><div class="stat-n">2nd</div><div class="stat-l">Year B.E. IT</div></div>
+          <div class="stat"><div class="stat-n">5+</div><div class="stat-l">Hackathons</div></div>
+        </div>
+        <div class="social-links">
+          <a href="https://github.com/shiva13-ai" target="_blank" title="GitHub">GH</a>
+          <a href="https://www.linkedin.com/in/tupakula-siva-shankar-921b6b379" target="_blank" title="LinkedIn">LI</a>
+          <a href="mailto:tupakulashiva13@gmail.com" title="Email">✉</a>
+        </div>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero__grid">
-        <div class="hero__text">
-          <p class="badge">AI • Full Stack • Android</p>
-          <h1>
-            Hi, I’m <span class="accent">Shiva Shankar</span> —
-            an AI-powered Full Stack project developer and Android app developer.
-          </h1>
-
-          <p class="lead">
-            Currently pursuing BE (2nd year) at Vasavi College of Engineering. I build practical apps,
-            experiment with AI integrations, and ship projects end-to-end.
-          </p>
-
-          <div class="hero__cta">
-            <a class="btn" href="#projects">View Projects</a>
-            <a class="btn btn--ghost" href="https://github.com/shiva13-ai" target="_blank" rel="noreferrer">
-              GitHub Profile
-            </a>
-          </div>
-
-          <div class="social">
-            <a class="chip" href="https://www.linkedin.com/in/tupakula-siva-shankar-921b6b379" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a class="chip" href="https://www.instagram.com/shiva._.1255_?igsh=dG5id3VuY3lmOGN3" target="_blank" rel="noreferrer">Instagram</a>
-            <a class="chip" href="https://www.facebook.com/share/174ibBJ32a/" target="_blank" rel="noreferrer">Facebook</a>
-          </div>
-        </div>
-
-        <div class="hero__card" aria-label="Profile card">
-          <img class="avatar" src="assets/profile.jpg" alt="Shiva Shankar" />
-
-          <div class="hero__meta">
-            <h2 class="hero__name">Shiva Shankar</h2>
-            <p class="hero__role">AI-powered Full Stack • Android</p>
-
-            <div class="hero__stats">
-              <div class="stat">
-                <p class="stat__k">GitHub</p>
-                <p class="stat__v">@shiva13-ai</p>
-              </div>
-              <div class="stat">
-                <p class="stat__k">Focus</p>
-                <p class="stat__v">Projects & Skills</p>
-              </div>
-              <div class="stat">
-                <p class="stat__k">Location</p>
-                <p class="stat__v">India</p>
-              </div>
-            </div>
-
-            <a class="btn btn--wide" href="#contact">Let’s work together</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="container">
-        <div class="divider"></div>
-      </div>
-    </section>
-
-    <section id="about" class="section">
-      <div class="container">
-        <div class="section__head">
-          <h2>About</h2>
-          <p>
-            I’m a student developer who enjoys building real applications: full stack web projects,
-            Python utilities, and Android apps—often with AI features where it makes sense.
-          </p>
-        </div>
-
-        <div class="cards">
-          <article class="card">
-            <h3>What I do</h3>
-            <ul class="list">
-              <li>Full stack web apps (frontend + backend)</li>
-              <li>Android applications</li>
-              <li>Python projects (computer vision(openCV) + utilities)</li>
-              <li>Cloud & databases (Firebase / SQL / MongoDB(learning))</li>
-            </ul>
-          </article>
-
-          <article class="card">
-            <h3>Current goal</h3>
-            <p>
-              Build strong, production-ready projects with clean UI, good architecture,
-              and measurable results.
-            </p>
-            
-          </article>
-
-          <article class="card">
-            <h3>Highlights</h3>
-            <ul class="list">
-              <li>Built multiple GitHub projects across TypeScript, Python, and Java</li>
-              <li>Interested in AI-powered product experiences</li>
-              <li>Actively improving portfolio and project documentation</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills" class="section section--alt">
-      <div class="container">
-        <div class="section__head">
-          <h2>Skills</h2>
-         
-        </div>
-
-        <div class="skillgrid">
-          <div class="skillbox">
-            <h3>Languages</h3>
-            <div class="tags">
-              <span class="tag">Python</span>
-              <span class="tag">TypeScript</span>
-              <span class="tag">Java</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">C</span>
-              <span class="tag">C++</span>
-              <span class="tag">Kotlin</span>
-              <span class="tag">PHP</span>
-              <span class="tag">HTML</span>
-            </div>
-          </div>
-
-          <div class="skillbox">
-            <h3>Frameworks & Tools</h3>
-            <div class="tags">
-              <span class="tag">Node.js</span>
-              <span class="tag">React(learning)</span>
-              <span class="tag">NPM</span>
-              <span class="tag">Git</span>
-              <span class="tag">GitHub</span>
-              <span class="tag">Gradle</span>
-              <span class="tag">Tomcat</span>
-            </div>
-          </div>
-
-          <div class="skillbox">
-            <h3>Cloud & Databases</h3>
-            <div class="tags">
-              <span class="tag">Firebase</span>
-              <span class="tag">AWS</span>
-              <span class="tag">MongoDB(learning)</span>
-              <span class="tag">MySQL</span>
-              <span class="tag">SQL Server</span>
-              <span class="tag">Oracle</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-<section id="certifications" class="section">
-  <div class="container">
-    <div class="section__head">
-      <h2>Certifications</h2>
-      <p>Industry-recognized training and simulations supporting my software and cloud skills.</p>
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="reveal">
+      <div class="sec-label">// 01 · About</div>
+      <div class="sec-divider"></div>
+      <h2 class="sec-title">WHO I AM</h2>
+      <p class="sec-sub">A student developer who ships real applications — not just tutorials.</p>
     </div>
 
-    <div class="certifications">
+    <div class="about-grid reveal">
+      <div class="about-block">
+        <div class="about-icon">🎓</div>
+        <h3>Education</h3>
+        <p>2nd year BE Information Technology at Vasavi College of Engineering, Hyderabad (lateral entry). Completed Diploma in CSE from Govt. Polytechnic, Nalgonda with 9.32 CGPA.</p>
+      </div>
+      <div class="about-block">
+        <div class="about-icon">🤖</div>
+        <h3>What I Build</h3>
+        <p>Full stack web apps, Python utilities with computer vision, Android applications, and AI-integrated platforms — from ESP32 IoT systems to ML competition notebooks.</p>
+      </div>
+      <div class="about-block">
+        <div class="about-icon">🏆</div>
+        <h3>Competitions</h3>
+        <p>Active in national hackathons, Kaggle competitions (SAR flood segmentation, AML environments), and simulation programs (JPMC, Walmart, AWS Forage).</p>
+      </div>
+      <div class="about-block">
+        <div class="about-icon">🎯</div>
+        <h3>Current Goal</h3>
+        <p>Build strong, production-ready projects with clean architecture and measurable results. Actively seeking internship opportunities in software development and AI.</p>
+      </div>
+      <div class="about-highlight">
+        <div class="big-number">9.32</div>
+        <div>
+          <p>Graduated with <strong>9.32 CGPA</strong> in Diploma (CSE) from Government Polytechnic, Nalgonda — a foundation that shaped strong programming fundamentals across C, Java, Python, and web technologies. Now pursuing lateral entry BE at Vasavi College of Engineering.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <article class="cert">
-        <h3>AWS & DevOps – Industrial Training (6 Months)</h3>
-        <p class="muted">
-          Completed a 6-month industrial training program at SV Global Services India Pvt. Ltd.
-          Focused on Amazon Web Services (AWS) fundamentals, DevOps concepts, and practical exposure
-          aligned with academic curriculum requirements.
-        </p>
-        <p class="muted small">
-          Issued by: SV Global Services India Pvt. Ltd. · May 2025
-        </p>
-        <a class="link" href="assets/awscert.jpeg" target="_blank">
-          View Certificate
-        </a>
-      </article>
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="reveal">
+      <div class="sec-label">// 02 · Skills</div>
+      <div class="sec-divider"></div>
+      <h2 class="sec-title">TECH STACK</h2>
+      <p class="sec-sub">Languages, frameworks, and tools I work with across web, mobile, and AI.</p>
+    </div>
 
-      <article class="cert">
+    <div class="skills-wrapper reveal">
+      <div class="skill-category">
+        <h3>Languages</h3>
+        <div class="skills-grid">
+          <span class="skill-pill"><span class="dot"></span>Python</span>
+          <span class="skill-pill"><span class="dot"></span>TypeScript</span>
+          <span class="skill-pill"><span class="dot"></span>JavaScript</span>
+          <span class="skill-pill"><span class="dot"></span>Java</span>
+          <span class="skill-pill"><span class="dot"></span>Kotlin</span>
+          <span class="skill-pill"><span class="dot"></span>C</span>
+          <span class="skill-pill"><span class="dot"></span>C++</span>
+          <span class="skill-pill"><span class="dot"></span>PHP</span>
+          <span class="skill-pill"><span class="dot"></span>HTML / CSS</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Frameworks &amp; Tools</h3>
+        <div class="skills-grid">
+          <span class="skill-pill blue"><span class="dot blue"></span>React</span>
+          <span class="skill-pill blue"><span class="dot blue"></span>FastAPI</span>
+          <span class="skill-pill blue"><span class="dot blue"></span>Flask</span>
+          <span class="skill-pill blue"><span class="dot blue"></span>Streamlit</span>
+          <span class="skill-pill blue"><span class="dot blue"></span>Node.js</span>
+          <span class="skill-pill blue"><span class="dot blue"></span>OpenCV</span>
+          <span class="skill-pill blue"><span class="dot blue"></span>MediaPipe</span>
+          <span class="skill-pill blue"><span class="dot blue"></span>NumPy</span>
+          <span class="skill-pill blue"><span class="dot blue"></span>Plotly</span>
+          <span class="skill-pill blue"><span class="dot blue"></span>Git / GitHub</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h3>Cloud, Databases &amp; Embedded</h3>
+        <div class="skills-grid">
+          <span class="skill-pill pink"><span class="dot pink"></span>Firebase</span>
+          <span class="skill-pill pink"><span class="dot pink"></span>Supabase</span>
+          <span class="skill-pill pink"><span class="dot pink"></span>AWS</span>
+          <span class="skill-pill pink"><span class="dot pink"></span>MySQL</span>
+          <span class="skill-pill pink"><span class="dot pink"></span>MongoDB</span>
+          <span class="skill-pill pink"><span class="dot pink"></span>Neo4j</span>
+          <span class="skill-pill pink"><span class="dot pink"></span>ESP32</span>
+          <span class="skill-pill pink"><span class="dot pink"></span>Docker</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="reveal">
+      <div class="sec-label">// 03 · Certifications</div>
+      <div class="sec-divider"></div>
+      <h2 class="sec-title">CREDENTIALS</h2>
+      <p class="sec-sub">Industry-recognized training and job simulations.</p>
+    </div>
+
+    <div class="cert-grid reveal">
+      <div class="cert-card">
+        <div class="cert-issuer">SV Global Services · May 2025</div>
+        <h3>AWS &amp; DevOps Industrial Training (6 Months)</h3>
+        <p>Hands-on training covering AWS fundamentals, DevOps concepts, and cloud architecture practices aligned with industry standards.</p>
+        <a href="assets/awscert.jpeg" class="cert-link">View Certificate ↗</a>
+      </div>
+      <div class="cert-card">
+        <div class="cert-issuer">Forage · July 2025</div>
         <h3>AWS Solutions Architecture – Job Simulation</h3>
-        <p class="muted">
-          Completed hands-on job simulation tasks including designing simple, scalable hosting
-          architectures and understanding real-world cloud solution patterns.
-        </p>
-        <p class="muted small">
-          Issued by: Forage · July 2025
-        </p>
-        <a class="link"
-           href="assets/awssimu.pdf"
-           target="_blank" rel="noreferrer">
-          View Certificate
-        </a>
-      </article>
-
-      <article class="cert">
-        <h3>Java Programming (Udemy)</h3>
-        <p class="muted">
-          Covered Java fundamentals including OOP concepts, collections framework,
-          exception handling, and practical programming exercises.
-        </p>
-        <p class="muted small">
-          Issued by: Udemy
-        </p>
-        <a class="link"
-           href="https://www.udemy.com/certificate/UC-7a763b85-c9c0-4ea3-96cc-e6951f1eafd5/"
-           target="_blank" rel="noreferrer">
-          View Certificate
-        </a>
-      </article>
-
+        <p>Completed job simulation tasks including designing scalable hosting architectures and real-world cloud solution patterns.</p>
+        <a href="https://shiva13-ai.github.io/Portfolio/assets/awssimu.pdf" target="_blank" class="cert-link">View Certificate ↗</a>
+      </div>
+      <div class="cert-card">
+        <div class="cert-issuer">Forage</div>
+        <h3>JPMorgan Chase Advanced Software Engineering</h3>
+        <p>Industry-simulated enterprise software engineering tasks covering real-world problem statements and solution design.</p>
+        <a href="https://github.com/shiva13-ai/forage-midas" target="_blank" class="cert-link">View on GitHub ↗</a>
+      </div>
+      <div class="cert-card">
+        <div class="cert-issuer">Udemy</div>
+        <h3>Core Java Programming Bootcamp</h3>
+        <p>Comprehensive Java course covering OOP, collections framework, exception handling, and practical programming exercises.</p>
+        <a href="https://www.udemy.com/certificate/UC-7a763b85-c9c0-4ea3-96cc-e6951f1eafd5/" target="_blank" class="cert-link">View Certificate ↗</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="projects" class="section">
-  <div class="container">
-    <div class="section__head">
-      <h2>Projects</h2>
-      <p>Main projects showcasing my development skills and practical experience.</p>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="reveal">
+      <div class="sec-label">// 04 · Projects</div>
+      <div class="sec-divider"></div>
+      <h2 class="sec-title">WHAT I'VE BUILT</h2>
+      <p class="sec-sub">Real applications shipped across web, AI, and embedded systems.</p>
     </div>
 
-    <div class="projects">
+    <div class="projects-grid reveal">
 
-      <article class="project">
-        <div class="project__top">
-          <h3>All Wheels Hub</h3>
-          <span class="pill">TypeScript</span>
-        </div>
-        <ul class="list">
-          <li>Developed a full-stack web platform for browsing and managing vehicle listings.</li>
-          <li>Implemented modular frontend components for clean UI and maintainable code.</li>
-          <li>Designed the project architecture to support scalability and future features.</li>
+      <div class="project-card">
+        <span class="project-lang">Python · Streamlit</span>
+        <h3>Genome Sequence Alignment Visualizer</h3>
+        <ul>
+          <li>Implements Needleman-Wunsch, Smith-Waterman, Hirschberg's &amp; Seed-and-Extend algorithms</li>
+          <li>Interactive visualizations using NumPy and Plotly</li>
+          <li>DAA course project showcasing algorithm complexity analysis</li>
         </ul>
-        <div class="project__links">
-          <a class="link" href="https://github.com/shiva13-ai/all-wheels-hub" target="_blank" rel="noreferrer">GitHub Repo</a>
+        <div class="project-footer">
+          <a href="https://github.com/shiva13-ai" target="_blank">↗ GitHub</a>
         </div>
-      </article>
+      </div>
 
-      <article class="project">
-        <div class="project__top">
-          <h3>Degree Guard (Jharkhand)</h3>
-          <span class="pill">TypeScript</span>
-        </div>
-        <ul class="list">
-          <li>Designed a degree verification system to reduce fake certificates and fraud.</li>
-          <li>Created structured workflows for secure document validation.</li>
-          <li>Focused on clarity of user flow for institutions and administrators.</li>
+      <div class="project-card">
+        <span class="project-lang">React · Supabase · Tailwind</span>
+        <h3>GreenGive – Golf Charity Platform</h3>
+        <ul>
+          <li>Full-stack charity subscription platform for golf tournaments</li>
+          <li>Built for Full Stack Developer internship application at Digital Heroes</li>
+          <li>React/Vite frontend with Supabase backend integration</li>
         </ul>
-        <div class="project__links">
-          <a class="link" href="https://github.com/shiva13-ai/degree-guard-jharkhand" target="_blank" rel="noreferrer">GitHub Repo</a>
+        <div class="project-footer">
+          <a href="https://github.com/shiva13-ai" target="_blank">↗ GitHub</a>
         </div>
-      </article>
+      </div>
 
-      <article class="project">
-        <div class="project__top">
-          <h3>Wheel Harmony Hub</h3>
-          <span class="pill">TypeScript</span>
-        </div>
-        <ul class="list">
-          <li>Built a vehicle-service web application with a modular frontend structure.</li>
-          <li>Emphasized clean UI design and component reusability.</li>
-          <li>Planned extensibility for authentication and database integration.</li>
+      <div class="project-card">
+        <span class="project-lang">Python · FastAPI · Docker</span>
+        <h3>AML Compliance RL Environment</h3>
+        <ul>
+          <li>Anti-Money Laundering OpenEnv-compliant RL training environment</li>
+          <li>Deployed on Hugging Face via Docker with FastAPI endpoints</li>
+          <li>Meta PyTorch OpenEnv Hackathon (Scaler) submission</li>
         </ul>
-        <div class="project__links">
-          <a class="link" href="https://github.com/shiva13-ai/wheel-harmony-hub" target="_blank" rel="noreferrer">GitHub Repo</a>
+        <div class="project-footer">
+          <a href="https://github.com/shiva13-ai/aml-env" target="_blank">↗ GitHub</a>
         </div>
-      </article>
+      </div>
 
-      <article class="project">
-        <div class="project__top">
-          <h3>Virtual Mouse</h3>
-          <span class="pill">Python</span>
-        </div>
-        <ul class="list">
-          <li>Developed a virtual mouse system using computer vision and hand gesture tracking.</li>
-          <li>Implemented cursor control without physical mouse hardware.</li>
-          <li>Applied OpenCV concepts for real-time gesture detection.</li>
+      <div class="project-card">
+        <span class="project-lang">Java · MySQL · Swing</span>
+        <h3>Unorganized Sector Worker Registry</h3>
+        <ul>
+          <li>"LinkedIn for gig workers" – full DBMS with audit logging and triggers</li>
+          <li>Multi-panel Java Swing GUI with JDBC backend</li>
+          <li>Features worker profiles, job listings, and verification workflows</li>
         </ul>
-        <div class="project__links">
-          <a class="link" href="https://github.com/shiva13-ai/Virtual-Mouse" target="_blank" rel="noreferrer">GitHub Repo</a>
+        <div class="project-footer">
+          <a href="https://github.com/shiva13-ai" target="_blank">↗ GitHub</a>
         </div>
-      </article>
+      </div>
 
-      <article class="project">
-        <div class="project__top">
-          <h3>Web Browser</h3>
-          <span class="pill">Python</span>
-        </div>
-        <ul class="list">
-          <li>Built a lightweight desktop web browser using Python.</li>
-          <li>Implemented basic navigation, page loading, and UI controls.</li>
-          <li>Improved understanding of browser workflow and GUI handling.</li>
+      <div class="project-card">
+        <span class="project-lang">Python · OpenCV · MediaPipe</span>
+        <h3>Virtual Mouse</h3>
+        <ul>
+          <li>Real-time cursor control via hand gesture tracking</li>
+          <li>No physical hardware required — pure computer vision</li>
+          <li>Built with MediaPipe Hands + OpenCV for gesture detection</li>
         </ul>
-        <div class="project__links">
-          <a class="link" href="https://github.com/shiva13-ai/Web-Browser" target="_blank" rel="noreferrer">GitHub Repo</a>
+        <div class="project-footer">
+          <a href="https://github.com/shiva13-ai/Virtual-Mouse" target="_blank">↗ GitHub</a>
         </div>
-      </article>
+      </div>
 
-      <article class="project">
-        <div class="project__top">
-          <h3>Forage – JPMC Advanced Software Engineering</h3>
-          <span class="pill">Java</span>
-        </div>
-        <ul class="list">
-          <li>Completed industry-simulated software engineering tasks provided by JPMC.</li>
-          <li>Worked on real-world problem statements and solution design.</li>
-          <li>Gained exposure to enterprise-level development standards.</li>
+      <div class="project-card">
+        <span class="project-lang">React · ESP32 · AI/ML</span>
+        <h3>FloodGuard Pro</h3>
+        <ul>
+          <li>Full-stack flood risk platform fusing ESP32 IoT data with geospatial AI</li>
+          <li>Integrates Prithvi-100M + U-Net for satellite imagery analysis</li>
+          <li>IBM Hackfiniti submission with real-time Supabase backend</li>
         </ul>
-        <div class="project__links">
-          <a class="link" href="https://github.com/shiva13-ai/forage-midas" target="_blank" rel="noreferrer">GitHub Repo</a>
+        <div class="project-footer">
+          <a href="https://github.com/shiva13-ai/Hackfiniti-floodAise-" target="_blank">↗ GitHub</a>
         </div>
-      </article>
+      </div>
 
     </div>
-  </div>
-</section>
+  </section>
 
-    <section id="contact" class="section section--alt">
-      <div class="container contact">
-        <div class="section__head">
-          <h2>Contact</h2>
-          <p>
-            If you want to collaborate, build a project, or discuss an internship,
-            message me on LinkedIn.
-          </p>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-wrap">
+      <div class="contact-left reveal">
+        <div class="sec-label">// 05 · Contact</div>
+        <div class="sec-divider"></div>
+        <h2 class="sec-title">LET'S<br>CONNECT</h2>
+        <p>Looking for an internship, hackathon partner, or just want to build something together? My inbox is open.</p>
+
+        <div class="contact-items">
+          <a href="mailto:tupakulashiva13@gmail.com" class="contact-item">
+            <span class="contact-icon">✉</span>
+            <div class="contact-text">
+              <span>Email</span>
+              <strong>tupakulashiva13@gmail.com</strong>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/tupakula-siva-shankar-921b6b379" target="_blank" class="contact-item">
+            <span class="contact-icon">💼</span>
+            <div class="contact-text">
+              <span>LinkedIn</span>
+              <strong>tupakula-siva-shankar</strong>
+            </div>
+          </a>
+          <a href="https://github.com/shiva13-ai" target="_blank" class="contact-item">
+            <span class="contact-icon">⌥</span>
+            <div class="contact-text">
+              <span>GitHub</span>
+              <strong>github.com/shiva13-ai</strong>
+            </div>
+          </a>
         </div>
+      </div>
 
-        <div class="contact__box">
-  <a class="btn" href="https://www.linkedin.com/in/tupakula-siva-shankar-921b6b379" target="_blank" rel="noreferrer">
-    Message on LinkedIn
-  </a>
+      <div class="contact-right reveal">
+        <h3>Quick Info</h3>
+        <div class="info-row">
+          <span class="label">Name</span>
+          <span class="value">Tupakula Siva Shankar</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Location</span>
+          <span class="value">Hyderabad, Telangana 🇮🇳</span>
+        </div>
+        <div class="info-row">
+          <span class="label">College</span>
+          <span class="value">Vasavi College of Engineering</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Year</span>
+          <span class="value">2nd Year · B.E. IT</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Diploma CGPA</span>
+          <span class="value">9.32 / 10</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Status</span>
+          <span class="value"><span class="status-badge"><span class="dot"></span>Open to Opportunities</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <a class="btn btn--ghost" href="mailto:tupakulashiva13@gmail.com">
-    Email Me
-  </a>
+  <!-- FOOTER -->
+  <footer>
+    <div>© 2025 <a href="#">Tupakula Siva Shankar</a> · Built with AI Tools</div>
+    <div><a href="https://github.com/shiva13-ai" target="_blank">github.com/shiva13-ai</a></div>
+  </footer>
 
-  <a class="btn btn--ghost" href="https://github.com/shiva13-ai" target="_blank" rel="noreferrer">
-    View GitHub
-  </a>
 </div>
-      </div>
-    </section>
 
-    <footer class="footer">
-      <div class="container footer__inner">
-        <p>© <span id="year"></span> Shiva Shankar.</p>
-        <div class="footer__links">
-          <a href="#top">Back to top</a>
-          <a href="https://github.com/shiva13-ai" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="mailto:tupakulashiva13@gmail.com">tupakulashiva13@gmail.com</a>
-        </div>
-      </div>
-    </footer>
-  </main>
+<script>
+// ─── CURSOR ───
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = -100, my = -100, rx = -100, ry = -100;
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = (mx - 6) + 'px';
+  cursor.style.top = (my - 6) + 'px';
+});
+
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = (rx - 18) + 'px';
+  ring.style.top = (ry - 18) + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+// ─── CANVAS PARTICLES ───
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+for (let i = 0; i < 70; i++) {
+  particles.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    r: Math.random() * 1.5 + 0.3,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    alpha: Math.random() * 0.6 + 0.2
+  });
+}
+
+function drawParticles() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach((p, i) => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+    if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0,245,196,${p.alpha})`;
+    ctx.fill();
+
+    // Connect nearby particles
+    for (let j = i + 1; j < particles.length; j++) {
+      const q = particles[j];
+      const d = Math.hypot(p.x - q.x, p.y - q.y);
+      if (d < 120) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(q.x, q.y);
+        ctx.strokeStyle = `rgba(0,245,196,${0.06 * (1 - d / 120)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  });
+  requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+// ─── REVEAL ON SCROLL ───
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+reveals.forEach(el => io.observe(el));
+</script>
 </body>
 </html>
-
